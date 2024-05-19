@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
+
 
 function DogForm() {
     const [name, setName] = useState('');
@@ -25,21 +27,13 @@ function DogForm() {
         e.preventDefault();
         const dog = { name, breed, age };
 
-        console.log("Submitting form", dog);
-
         if (id) {
-            axios.patch(`http://localhost:5001/dogs/${id}`, dog)
-                .then(() => {
-                    console.log("Dog updated");
-                    navigate('/');
-                })
+            axios.patch(`${API_URL}/dogs/${id}`, dog)
+                .then(() => navigate('/'))
                 .catch(error => console.error("Error updating dog", error));
         } else {
-            axios.post('http://localhost:5001/dogs', dog)
-                .then(() => {
-                    console.log("Dog added");
-                    navigate('/');
-                })
+            axios.post(`${API_URL}/dogs`, dog)
+                .then(() => navigate('/'))
                 .catch(error => console.error("Error adding dog", error));
         }
     };

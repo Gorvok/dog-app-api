@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
+
 
 function DogList() {
     const [dogs, setDogs] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5001/dogs')
+        axios.get(`${API_URL}/dogs`)
             .then(response => setDogs(response.data))
             .catch(error => console.error(error));
     }, []);
