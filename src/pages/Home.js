@@ -1,6 +1,5 @@
 import React from 'react';
 import DogList from '../components/DogList';
-import {Link} from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 function Home() {
