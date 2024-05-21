@@ -13,7 +13,7 @@ function DogForm() {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:5001/dogs/${id}`)
+            axios.get(`${API_URL}/dogs/${id}`)
                 .then(response => {
                     setName(response.data.name);
                     setBreed(response.data.breed);

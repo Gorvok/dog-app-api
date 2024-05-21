@@ -14,7 +14,7 @@ function DogList() {
     }, []);
 
     const deleteDog = (id) => {
-        axios.delete(`http://localhost:5001/dogs/${id}`)
+        axios.delete(`${API_URL}/dogs/${id}`)
             .then(() => {
 
                 setDogs(dogs.filter(dog => dog._id !== id));
