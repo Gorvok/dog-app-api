@@ -130,7 +130,7 @@ This project is licensed under the MIT License.
 - Special thanks to MongoDB, Render, and Netlify for providing free tiers for deployment.
 
 ### Contact
-For and inquires or issues, please message me or send an email.
+For any inquires or issues, please message me or send an email.
 
 [GJO.DEV](https://www.gjo.dev)
 
