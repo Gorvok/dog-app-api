@@ -10,6 +10,9 @@ This project is a Dog Management Application built as a part of a school project
 
 ## Features
 
+- **User Registration & Login**
+- **JWT-Based Authentication**
+- **Protected Routes**
 - **Add a New Dog**: Users can add new dogs to the list by providing details such as name, breed, and age.
 - **View Dogs**: Users can view a list of all the dogs added to the application.
 - **Edit Dog Details**: Users can edit the details of existing dogs.
@@ -18,7 +21,7 @@ This project is a Dog Management Application built as a part of a school project
 ## Technologies Used
 
 - **Frontend**: React, Axios, React Router
-- **Backend**: Node.js, Express, Mongoose
+- **Backend**: Node.js, Express, Mongoose, MongoDB, JWT
 - **Database**: MongoDB Atlas
 - **Deployment**: Render (Backend), Netlify (Frontend)
 
@@ -50,8 +53,13 @@ This project is a Dog Management Application built as a part of a school project
     - Create a .env file in the backend directory with the following content:
         ```bash
         DATABASE_URL=mongodb+srv://<username>:<password>@dogs-app-api.0vfd0bb.mongodb.net/
+        JWT_SECRET=your_jwt_secret
         ```
-      
+    - In your backend project folder run
+      ```bash
+      node generateSecret.js
+      ```
+    - This will create your JWT Secret Key!
 4. **Start the Backend Server:**
     ```bash
     npm start
@@ -121,6 +129,8 @@ This project is a Dog Management Application built as a part of a school project
     - Click on a dog's name in the list, edit the details, and save.
 5. **Delete a Dog:**
     - Click the "Delete" button next to a dog's name to remove it from the list.
+6. **User**
+    - Register a New User & Log In!
 
 ### License
 This project is licensed under the MIT License.
@@ -139,3 +149,11 @@ For any inquires or issues, please message me or send an email.
 [Instagram](https://www.instagram.com/gjo.dev)
 
 [Linkedin](https://www.linkedin.com/gjovanigorvokaj)
+
+
+### Final Notes
+
+- Make sure to replace placeholders with actual values (e.g., `your_mongodb_connection_string`, `your_jwt_secret`, `https://your-backend-url.com`).
+- Keep testing and refining your app to ensure a smooth user experience.
+- Good luck with your submission! If you have any more questions or need further assistance, feel free to ask.
+
