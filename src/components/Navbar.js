@@ -14,7 +14,10 @@ function Navbar() {
                     <button onClick={logout} style={{ marginLeft: '10px' }}>Logout</button>
                 </>
             ) : (
-                <Link to="/login" style={{ marginLeft: '10px' }}>Login</Link>
+                <>
+                    <Link to="/login" style={{ marginLeft: '10px' }}>Login</Link>
+                    <Link to="/register" style={{ marginLeft: '10px' }}>Register</Link>
+                </>
             )}
         </nav>
     );
