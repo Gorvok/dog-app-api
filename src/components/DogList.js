@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
+import { Link, useNavigate } from 'react-router-dom';
+import axiosInstance from '../axiosConfig';
 
-
-function DogList() {
+const DogList = () => {
     const [dogs, setDogs] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`${API_URL}/dogs`)
-            .then(response => setDogs(response.data))
-            .catch(error => console.error(error));
-    }, []);
+        const fetchDogs = async () => {
+            try {
+                const response = await axiosInstance.get('/dogs');
+                setDogs(response.data);
+            } catch (error) {
+                console.error('Error fetching dogs:', error);
+                if (error.response && error.response.status === 401) {
+                    navigate('/login');
+                }
+            }
+        };
+        fetchDogs();
+    }, [navigate]);
 
-    const deleteDog = (id) => {
-        axios.delete(`${API_URL}/dogs/${id}`)
-            .then(() => {
-
-                setDogs(dogs.filter(dog => dog._id !== id));
-            })
-            .catch(error => console.error('Error deleting dog:', error));
+    const deleteDog = async (id) => {
+        try {
+            await axiosInstance.delete(`/dogs/${id}`);
+            setDogs(dogs.filter(dog => dog._id !== id));
+        } catch (error) {
+            console.error('Error deleting dog:', error);
+        }
     };
 
     return (
@@ -37,6 +45,6 @@ function DogList() {
             </ul>
         </div>
     );
-}
+};
 
 export default DogList;

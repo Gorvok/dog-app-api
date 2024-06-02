@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Dog = require('../models/Dog');
+const auth = require('../middleware/auth')
 
 // GET all dogs
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const dogs = await Dog.find();
         res.json(dogs);
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST a new dog
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     const dog = new Dog({
         name: req.body.name,
         breed: req.body.breed,
@@ -29,12 +30,12 @@ router.post('/', async (req, res) => {
 });
 
 // GET a single dog
-router.get('/:id', getDog, (req, res) => {
+router.get('/:id', auth, getDog, (req, res) => {
     res.json(res.dog);
 });
 
 // PATCH/PUT update a dog
-router.patch('/:id', getDog, async (req, res) => {
+router.patch('/:id', auth, getDog, async (req, res) => {
     if (req.body.name != null) {
         res.dog.name = req.body.name;
     }
@@ -54,7 +55,7 @@ router.patch('/:id', getDog, async (req, res) => {
 });
 
 // DELETE a dog
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
     try {
         console.log(`Deleting dog: ${req.params.id}`);
         await Dog.findByIdAndDelete(req.params.id);

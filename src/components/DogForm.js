@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
-
+import axiosInstance from '../axiosConfig';
+import { UserContext } from '../context/UserContext';
 
 function DogForm() {
     const [name, setName] = useState('');
@@ -10,10 +9,15 @@ function DogForm() {
     const [age, setAge] = useState('');
     const navigate = useNavigate();
     const { id } = useParams();
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         if (id) {
-            axios.get(`${API_URL}/dogs/${id}`)
+            axiosInstance.get(`/dogs/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            })
                 .then(response => {
                     setName(response.data.name);
                     setBreed(response.data.breed);
@@ -21,18 +25,26 @@ function DogForm() {
                 })
                 .catch(error => console.error(error));
         }
-    }, [id]);
+    }, [id, user.token]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const dog = { name, breed, age };
 
         if (id) {
-            axios.patch(`${API_URL}/dogs/${id}`, dog)
+            axiosInstance.patch(`/dogs/${id}`, dog, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            })
                 .then(() => navigate('/'))
                 .catch(error => console.error("Error updating dog", error));
         } else {
-            axios.post(`${API_URL}/dogs`, dog)
+            axiosInstance.post('/dogs', dog, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            })
                 .then(() => navigate('/'))
                 .catch(error => console.error("Error adding dog", error));
         }
